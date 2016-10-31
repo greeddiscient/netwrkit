@@ -1,7 +1,10 @@
 package com.example.djurus.netwrkit;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,6 +25,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        Button listView = (Button)findViewById(R.id.list_view_button);
+        listView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent myIntent = new Intent(MapsActivity.this, ListActivity.class);
+                MapsActivity.this.startActivity(myIntent);
+            }
+        });
     }
 
 
@@ -37,7 +49,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMyLocationEnabled(true);
+//        mMap.setMyLocationEnabled(true);
         // Add a marker in SouthHall and move the camera
         LatLng rsf = new LatLng(37.868647,-122.262859);
         LatLng rsf1 = new LatLng(37.868500,-122.262859);
