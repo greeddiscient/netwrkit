@@ -95,7 +95,8 @@
             <Button
                 android:layout_width="150dp"
                 android:layout_height="50dp"
-                android:text="Filter By"/>
+                android:text="Filter By"
+                android:id="@+id/filterbutton"/>
             <Button
                 android:id="@+id/map_view_button"
                 android:layout_width="150dp"

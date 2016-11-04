@@ -21,12 +21,15 @@ import java.util.Map;
 
 public class ListActivity extends AppCompatActivity {
     private ArrayList<Person> attendeeList = new ArrayList<Person>();
+    private ArrayList<Person> filteredList = new ArrayList<Person>();
     private PersonAdapter adapter;
+    private ListView list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         Button mapView = (Button)findViewById(R.id.map_view_button);
+        Button filterButton = (Button) findViewById(R.id.filterbutton);
 
 
 
@@ -39,7 +42,7 @@ public class ListActivity extends AppCompatActivity {
         attendeeList.add( new Person("Lori Rosen","Finance","Student", "UC Berkeley","History"));
 
         adapter = new PersonAdapter(getApplicationContext(), attendeeList);
-        ListView list = (ListView) findViewById(android.R.id.list);
+        list = (ListView) findViewById(android.R.id.list);
         list.setAdapter(adapter);
 //        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
@@ -57,6 +60,15 @@ public class ListActivity extends AppCompatActivity {
 
                 Intent myIntent = new Intent(ListActivity.this, MapsActivity.class);
                 ListActivity.this.startActivity(myIntent);
+            }
+        });
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filteredList=filter("Finance");
+                adapter = new PersonAdapter(getApplicationContext(), filteredList);
+                adapter.notifyDataSetChanged();
+                list.setAdapter(adapter);
             }
         });
 
@@ -87,5 +99,15 @@ public class ListActivity extends AppCompatActivity {
 
             return personView;
         }
+    }
+    public ArrayList<Person> filter(String criteria){
+        ArrayList<Person> result = new ArrayList<>();
+        for (int i=0;i<attendeeList.size();i++){
+            Person person =attendeeList.get(i);
+            if (person.getIndustry().equals(criteria)){
+                result.add(person);
+            }
+        }
+        return result;
     }
 }
