@@ -1,6 +1,8 @@
 package com.example.djurus.netwrkit;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,10 +14,17 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
+    private SharedPreferences sharedPreferences;
     private GoogleMap mMap;
+    private ArrayList<Person> displayList = new ArrayList<>();
+    private ArrayList<Person> attendeeList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +34,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        String jsonDisplayList=sharedPreferences.getString("displayList","");
+        Gson gson=new Gson();
+        Type type = new TypeToken<ArrayList<Person>>(){}.getType();
+        displayList = gson.fromJson(jsonDisplayList, type);
+        String jsonAttendeeList=sharedPreferences.getString("attendeeList","");
+        attendeeList = gson.fromJson(jsonAttendeeList,type);
+
+        if (displayList==null){
+            displayList=attendeeList;
+        }
+
+
         Button listView = (Button)findViewById(R.id.list_view_button);
         listView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,13 +74,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 //        mMap.setMyLocationEnabled(true);
         // Add a marker in SouthHall and move the camera
-        LatLng rsf = new LatLng(37.868647,-122.262859);
-        LatLng rsf1 = new LatLng(37.868500,-122.262859);
-        LatLng rsf2 = new LatLng(37.868500,-122.262700);
 
-        mMap.addMarker(new MarkerOptions().position(rsf).title("Shaun Dju"));
-        mMap.addMarker(new MarkerOptions().position(rsf1).title("Jew Lie"));
-        mMap.addMarker(new MarkerOptions().position(rsf2).title("Pratik Nada"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(rsf,19.0f));
+        for (int i=0;i<displayList.size();i++){
+            Person person = displayList.get(i);
+            mMap.addMarker(new MarkerOptions().position(person.getLocation()).title(person.getName()));
+        }
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.868647,-122.262859),19.0f));
     }
 }

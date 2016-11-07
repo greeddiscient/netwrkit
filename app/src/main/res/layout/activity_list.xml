@@ -269,59 +269,94 @@
                 android:text="Search"/>
         </LinearLayout>
     </RelativeLayout>
-    <RelativeLayout
+    <ScrollView
+        android:layout_marginTop="275dp"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_alignParentBottom="true"
-        android:visibility="gone"
-        android:id="@+id/companyCats">
-        <View
+        android:layout_height="wrap_content">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:background="#fff"/>
-        <LinearLayout
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Company Name"
-                android:textSize="26dp"
-                android:layout_marginBottom="15dp"/>
-            <CheckBox
-                android:id="@+id/accentureCheckBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="Accenture" />
-            <CheckBox
-                android:id="@+id/ucbCheckBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="UC Berkeley"/>
-            <CheckBox
-                android:id="@+id/bainCheckBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="Bain"/>
-            <CheckBox
-                android:id="@+id/khanCheckBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="Khan Academy"/>
-            <Button
-                android:id="@+id/searchCompanyFilterButton"
+            android:visibility="gone"
+            android:id="@+id/companyCats">
+            <View
                 android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:background="#fff"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Search"/>
-        </LinearLayout>
-    </RelativeLayout>
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Company Name"
+                    android:textSize="26dp"
+                    android:layout_marginBottom="15dp"/>
+                <CheckBox
+                    android:id="@+id/accentureCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Accenture" />
+                <CheckBox
+                    android:id="@+id/ucbCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="UC Berkeley"/>
+                <CheckBox
+                    android:id="@+id/bainCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Bain"/>
+                <CheckBox
+                    android:id="@+id/khanCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Khan Academy"/>
+                <CheckBox
+                    android:id="@+id/prismCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Prism"/>
+                <CheckBox
+                    android:id="@+id/salesforceCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Salesforce"/>
+                <CheckBox
+                    android:id="@+id/appleCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Apple"/>
+                <CheckBox
+                    android:id="@+id/uberCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Uber"/>
+                <CheckBox
+                    android:id="@+id/googleCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Google"/>
+                <Button
+                    android:id="@+id/searchCompanyFilterButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Search"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="350dp"
@@ -349,7 +384,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:text="Accenture" />
+                android:text="Yoga" />
             <CheckBox
                 android:id="@+id/climbingCheckBox"
                 android:layout_width="wrap_content"

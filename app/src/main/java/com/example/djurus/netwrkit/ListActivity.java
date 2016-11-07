@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +20,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -26,6 +32,9 @@ public class ListActivity extends AppCompatActivity {
     private ArrayList<Person> filteredList = new ArrayList<Person>();
     private PersonAdapter adapter;
     private ListView list;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor prefsEditor;
+
     private Button filterCompanyButton;
     private Button filterJobButton;
     private Button filterIndustryButton;
@@ -48,10 +57,18 @@ public class ListActivity extends AppCompatActivity {
     private CheckBox technologyCheckBox;
     private CheckBox educationCheckBox;
     private CheckBox healthcareCheckBox;
+
     private CheckBox accentureCheckBox;
     private CheckBox ucbCheckBox;
     private CheckBox bainCheckBox;
     private CheckBox khanCheckBox;
+    private CheckBox prismCheckBox;
+    private CheckBox salesforceCheckBox;
+    private CheckBox appleCheckBox;
+    private CheckBox uberCheckBox;
+    private CheckBox googleCheckBox;
+
+
     private CheckBox yogaCheckBox;
     private CheckBox climbingCheckBox;
     private CheckBox gamingCheckBox;
@@ -89,17 +106,47 @@ public class ListActivity extends AppCompatActivity {
         ucbCheckBox = (CheckBox)findViewById(R.id.ucbCheckBox);
         bainCheckBox = (CheckBox)findViewById(R.id.bainCheckBox);
         khanCheckBox = (CheckBox)findViewById(R.id.khanCheckBox);
+        prismCheckBox = (CheckBox)findViewById(R.id.prismCheckBox);
+        salesforceCheckBox = (CheckBox)findViewById(R.id.salesforceCheckBox);
+        appleCheckBox = (CheckBox)findViewById(R.id.appleCheckBox);
+        uberCheckBox = (CheckBox)findViewById(R.id.uberCheckBox);
+        googleCheckBox = (CheckBox)findViewById(R.id.googleCheckBox);
+
         yogaCheckBox = (CheckBox)findViewById(R.id.yogaCheckBox);
         climbingCheckBox = (CheckBox)findViewById(R.id.climbingCheckBox);
         gamingCheckBox = (CheckBox)findViewById(R.id.gamingCheckBox);
         fashionCheckBox = (CheckBox)findViewById(R.id.fashionCheckBox);
 
 
-        attendeeList.add( new Person("Michaela Reid","Finance","Student", "UC Berkeley","Yoga"));
-        attendeeList.add( new Person("Julie Nottingham","Healthcare","Consultant", "Bain","Climbing"));
-        attendeeList.add( new Person("Chris Hemskin","Technology","Consultant", "Accenture","Gaming"));
-        attendeeList.add( new Person("Patrick Pattington","Education","Designer", "Khan Academy","Fashion"));
-        attendeeList.add( new Person("Lori Rosen","Finance","Student", "UC Berkeley","History"));
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        prefsEditor = sharedPreferences.edit();
+
+
+        attendeeList.add( new Person("Michaela Reid","Finance","Student", "UC Berkeley","Yoga",37.868647,-122.262859));
+        attendeeList.add( new Person("Julie Nottingham","Healthcare","Consultant", "Bain","Climbing",37.868500,-122.262859));
+        attendeeList.add( new Person("Chris Hemskin","Technology","Consultant", "Accenture","Gaming",37.868500,-122.262700));
+        attendeeList.add( new Person("Patrick Pattington","Education","Designer", "Khan Academy","Fashion",37.868647,-122.262700));
+        attendeeList.add( new Person("Lori Rosen","Finance","Student", "UC Berkeley","History",37.868400,-122.262859));
+        attendeeList.add( new Person("Ashley Hwang","Healthcare","Engineer", "Prism","Scifi novels",37.868733, -122.263800));
+        attendeeList.add( new Person("Philip Visco","Technology","Designer", "Salesforce","Cooking",37.868400,-122.262700));
+        attendeeList.add( new Person("Alex Lee","Education","Student", "UC Berkeley","Academia",37.868598, -122.263543));
+        attendeeList.add( new Person("Rosa Hernandez","Technology","Engineer", "Apple","Shoes",37.868826, -122.263349));
+        attendeeList.add( new Person("Martin Lawrence","Technology","Designer", "Uber","Golfing",37.868758, -122.263596));
+        attendeeList.add( new Person("Wilson Wong","Technology","Consultant", "Accenture","Basketball",37.868931, -122.262595));
+        attendeeList.add( new Person("Nancy Nguyen","Education","Designer", "Idea","Social Media",37.868711, -122.262280));
+        attendeeList.add( new Person("Paul Patinsky","Finance","Engineer", "Uber","Skiing",37.868470, -122.262344));
+        attendeeList.add( new Person("Ellen Gorospe","Healthcare","Consultant", "Deloitte","Movies",37.868368, -122.263798));
+        attendeeList.add( new Person("Sanjay Gupta","Technology","Student", "UC Berkeley","Rafting",37.868694, -122.262532));
+        attendeeList.add( new Person("Madhura Chandra","Education","Engineer", "Google","Singing",37.868732, -122.263205));
+        attendeeList.add( new Person("Gunjan Desai","Finance","Consultant", "Bain","Dancing",37.868656, -122.263666));
+        attendeeList.add( new Person("Ajay Balu","Healthcare","Technology", "Autodesk","Photography",37.868523, -122.263651));
+        attendeeList.add( new Person("Alice LInder","Technology","Engineer", "Google","Music",37.868834, -122.263089));
+        attendeeList.add( new Person("Ariana Venti","Education","Student", "UC Berkeley","Cars",37.868529, -122.263218));
+
+        String jsonAttendeeList = new Gson().toJson(attendeeList);
+        prefsEditor.putString("attendeeList", jsonAttendeeList);
+        prefsEditor.commit();
 
         adapter = new PersonAdapter(getApplicationContext(), attendeeList);
         list = (ListView) findViewById(android.R.id.list);
@@ -163,6 +210,9 @@ public class ListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 filteredList= new ArrayList<Person>();
                 filteredList=filterJob();
+                String jsonFilteredList = new Gson().toJson(filteredList);
+                prefsEditor.putString("displayList", jsonFilteredList);
+                prefsEditor.commit();
                 adapter = new PersonAdapter(getApplicationContext(), filteredList);
                 adapter.notifyDataSetChanged();
                 list.setAdapter(adapter);
@@ -175,6 +225,9 @@ public class ListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 filteredList= new ArrayList<Person>();
                 filteredList=filterIndustry();
+                String jsonFilteredList = new Gson().toJson(filteredList);
+                prefsEditor.putString("displayList", jsonFilteredList);
+                prefsEditor.commit();
                 adapter = new PersonAdapter(getApplicationContext(), filteredList);
                 adapter.notifyDataSetChanged();
                 list.setAdapter(adapter);
@@ -187,6 +240,9 @@ public class ListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 filteredList= new ArrayList<Person>();
                 filteredList=filterCompany();
+                String jsonFilteredList = new Gson().toJson(filteredList);
+                prefsEditor.putString("displayList", jsonFilteredList);
+                prefsEditor.commit();
                 adapter = new PersonAdapter(getApplicationContext(), filteredList);
                 adapter.notifyDataSetChanged();
                 list.setAdapter(adapter);
@@ -199,6 +255,9 @@ public class ListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 filteredList= new ArrayList<Person>();
                 filteredList=filterInterests();
+                String jsonFilteredList = new Gson().toJson(filteredList);
+                prefsEditor.putString("displayList", jsonFilteredList);
+                prefsEditor.commit();
                 adapter = new PersonAdapter(getApplicationContext(), filteredList);
                 adapter.notifyDataSetChanged();
                 list.setAdapter(adapter);
@@ -321,6 +380,11 @@ public class ListActivity extends AppCompatActivity {
         boolean ucbCheck= ucbCheckBox.isChecked();
         boolean bainCheck= bainCheckBox.isChecked();
         boolean khanCheck= khanCheckBox.isChecked();
+        boolean prismCheck= prismCheckBox.isChecked();
+        boolean salesforceCheck = salesforceCheckBox.isChecked();
+        boolean appleCheck = appleCheckBox.isChecked();
+        boolean uberCheck = uberCheckBox.isChecked();
+        boolean googleCheck = googleCheckBox.isChecked();
         for (int i=0;i<attendeeList.size();i++){
             Person person =attendeeList.get(i);
             if (accentureCheck){
@@ -340,6 +404,31 @@ public class ListActivity extends AppCompatActivity {
             }
             if (khanCheck){
                 if (person.getCompany().equals("Khan Academy")){
+                    result.add(person);
+                }
+            }
+            if (prismCheck){
+                if (person.getCompany().equals("Prism")){
+                    result.add(person);
+                }
+            }
+            if (salesforceCheck){
+                if (person.getCompany().equals("Salesforce")){
+                    result.add(person);
+                }
+            }
+            if (appleCheck){
+                if (person.getCompany().equals("Apple")){
+                    result.add(person);
+                }
+            }
+            if (uberCheck){
+                if (person.getCompany().equals("Uber")){
+                    result.add(person);
+                }
+            }
+            if (googleCheck){
+                if (person.getCompany().equals("Google")){
                     result.add(person);
                 }
             }
