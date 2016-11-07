@@ -12,6 +12,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
@@ -74,11 +75,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 //        mMap.setMyLocationEnabled(true);
         // Add a marker in SouthHall and move the camera
-
+        mMap.addMarker(new MarkerOptions().position(new LatLng(37.868319, -122.263307)).title("ME").icon(BitmapDescriptorFactory.fromResource(R.drawable.youpin)));
         for (int i=0;i<displayList.size();i++){
             Person person = displayList.get(i);
             mMap.addMarker(new MarkerOptions().position(person.getLocation()).title(person.getName()));
         }
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.868647,-122.262859),19.0f));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.868647,-122.262859),17.0f));
     }
 }

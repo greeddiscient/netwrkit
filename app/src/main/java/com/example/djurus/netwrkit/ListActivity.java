@@ -18,10 +18,12 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -43,15 +45,16 @@ public class ListActivity extends AppCompatActivity {
     private Button searchIndustryFilterButton;
     private Button searchCompanyFilterButton;
     private Button searchInterestsFilterButton;
+    private Button resetFilterButton;
 
     private RelativeLayout jobCats;
     private RelativeLayout industryCats;
-    private RelativeLayout companyCats;
+    private ScrollView companyCats;
     private RelativeLayout interestsCats;
     private RelativeLayout filterOptions;
     private CheckBox engineerCheckBox;
     private CheckBox designerCheckBox;
-    private CheckBox pmCheckBox;
+    private CheckBox consultantCheckBox;
     private CheckBox researcherCheckBox;
     private CheckBox financeCheckBox;
     private CheckBox technologyCheckBox;
@@ -89,14 +92,15 @@ public class ListActivity extends AppCompatActivity {
         searchIndustryFilterButton = (Button) findViewById(R.id.searchIndustryFilterButton);
         searchInterestsFilterButton = (Button) findViewById(R.id.searchInterestsFilterButton);
         searchCompanyFilterButton = (Button) findViewById(R.id.searchCompanyFilterButton);
+        resetFilterButton = (Button) findViewById(R.id.resetFilterButton);
         filterOptions=(RelativeLayout) findViewById(R.id.filterOptions);
         jobCats = (RelativeLayout) findViewById(R.id.jobCats);
         industryCats = (RelativeLayout) findViewById(R.id.industryCats);
-        companyCats = (RelativeLayout) findViewById(R.id.companyCats);
+        companyCats = (ScrollView) findViewById(R.id.companyCats);
         interestsCats = (RelativeLayout) findViewById(R.id.interestsCats);
         engineerCheckBox = (CheckBox)findViewById(R.id.engineerCheckBox);
         designerCheckBox = (CheckBox)findViewById(R.id.designerCheckBox);
-        pmCheckBox = (CheckBox)findViewById(R.id.pmCheckBox);
+        consultantCheckBox = (CheckBox)findViewById(R.id.consultantCheckBox);
         researcherCheckBox = (CheckBox)findViewById(R.id.researcherCheckBox);
         financeCheckBox = (CheckBox)findViewById(R.id.financeCheckBox);
         technologyCheckBox = (CheckBox)findViewById(R.id.technologyCheckBox);
@@ -121,6 +125,10 @@ public class ListActivity extends AppCompatActivity {
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         prefsEditor = sharedPreferences.edit();
+        String jsonDisplayList=sharedPreferences.getString("displayList","");
+        Gson gson=new Gson();
+        Type type = new TypeToken<ArrayList<Person>>(){}.getType();
+        filteredList = gson.fromJson(jsonDisplayList, type);
 
 
         attendeeList.add( new Person("Michaela Reid","Finance","Student", "UC Berkeley","Yoga",37.868647,-122.262859));
@@ -140,15 +148,19 @@ public class ListActivity extends AppCompatActivity {
         attendeeList.add( new Person("Sanjay Gupta","Technology","Student", "UC Berkeley","Rafting",37.868694, -122.262532));
         attendeeList.add( new Person("Madhura Chandra","Education","Engineer", "Google","Singing",37.868732, -122.263205));
         attendeeList.add( new Person("Gunjan Desai","Finance","Consultant", "Bain","Dancing",37.868656, -122.263666));
-        attendeeList.add( new Person("Ajay Balu","Healthcare","Technology", "Autodesk","Photography",37.868523, -122.263651));
+        attendeeList.add( new Person("Ajay Balu","Healthcare","Designer", "Autodesk","Photography",37.868523, -122.263651));
         attendeeList.add( new Person("Alice LInder","Technology","Engineer", "Google","Music",37.868834, -122.263089));
         attendeeList.add( new Person("Ariana Venti","Education","Student", "UC Berkeley","Cars",37.868529, -122.263218));
 
         String jsonAttendeeList = new Gson().toJson(attendeeList);
         prefsEditor.putString("attendeeList", jsonAttendeeList);
         prefsEditor.commit();
-
-        adapter = new PersonAdapter(getApplicationContext(), attendeeList);
+        if (filteredList==null){
+            adapter = new PersonAdapter(getApplicationContext(), attendeeList);
+        }
+        else{
+            adapter = new PersonAdapter(getApplicationContext(), filteredList);
+        }
         list = (ListView) findViewById(android.R.id.list);
         list.setAdapter(adapter);
 //        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -265,6 +277,20 @@ public class ListActivity extends AppCompatActivity {
                 list.setVisibility(View.VISIBLE);
             }
         });
+        resetFilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filteredList=attendeeList;
+                String jsonFilteredList = new Gson().toJson(filteredList);
+                prefsEditor.putString("displayList", jsonFilteredList);
+                prefsEditor.commit();
+                adapter = new PersonAdapter(getApplicationContext(), filteredList);
+                adapter.notifyDataSetChanged();
+                list.setAdapter(adapter);
+                filterOptions.setVisibility(View.GONE);
+                list.setVisibility(View.VISIBLE);
+            }
+        });
 
     }
 
@@ -310,7 +336,7 @@ public class ListActivity extends AppCompatActivity {
         ArrayList<Person> result = new ArrayList<>();
         boolean engineerCheck= engineerCheckBox.isChecked();
         boolean designerCheck= designerCheckBox.isChecked();
-        boolean pmCheck= pmCheckBox.isChecked();
+        boolean consultantCheck= consultantCheckBox.isChecked();
         boolean researcherCheck= researcherCheckBox.isChecked();
         for (int i=0;i<attendeeList.size();i++){
             Person person =attendeeList.get(i);
@@ -324,8 +350,8 @@ public class ListActivity extends AppCompatActivity {
                     result.add(person);
                 }
             }
-            if (pmCheck){
-                if (person.getOccupation().equals("Product Manager")){
+            if (consultantCheck){
+                if (person.getOccupation().equals("Consultant")){
                     result.add(person);
                 }
             }

@@ -118,7 +118,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:layout_alignParentBottom="true"
+        android:layout_marginTop="275dp"
         android:visibility="gone"
         android:id="@+id/filterOptions">
         <View
@@ -136,37 +136,43 @@
                 android:layout_height="wrap_content"
                 android:text="Filter By:"
                 android:textSize="26dp"
-                android:layout_marginBottom="15dp"/>
+                android:layout_marginBottom="10dp"/>
             <Button
                 android:id="@+id/filterCompanyButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="3dp"
                 android:text="Company" />
             <Button
                 android:id="@+id/filterJobButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="3dp"
                 android:text="Job Type"/>
             <Button
                 android:id="@+id/filterInterestsButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="3dp"
                 android:text="Interests"/>
             <Button
                 android:id="@+id/filterIndustryButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
                 android:text="Industry"/>
+            <Button
+                android:id="@+id/resetFilterButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reset"/>
 
         </LinearLayout>
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:layout_alignParentBottom="true"
+        android:layout_marginTop="275dp"
         android:visibility="gone"
         android:id="@+id/jobCats">
         <View
@@ -198,11 +204,11 @@
                 android:layout_marginBottom="5dp"
                 android:text="Designer"/>
             <CheckBox
-                android:id="@+id/pmCheckBox"
+                android:id="@+id/consultantCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:text="Product Manager"/>
+                android:text="Consultant"/>
             <CheckBox
                 android:id="@+id/researcherCheckBox"
                 android:layout_width="wrap_content"
@@ -219,7 +225,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:layout_alignParentBottom="true"
+        android:layout_marginTop="275dp"
         android:visibility="gone"
         android:id="@+id/industryCats">
         <View
@@ -272,12 +278,12 @@
     <ScrollView
         android:layout_marginTop="275dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/companyCats">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:id="@+id/companyCats">
+            android:layout_height="wrap_content">
             <View
                 android:layout_width="match_parent"
                 android:layout_height="500dp"
@@ -360,7 +366,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:layout_alignParentBottom="true"
+        android:layout_marginTop="275dp"
         android:visibility="gone"
         android:id="@+id/interestsCats">
         <View
