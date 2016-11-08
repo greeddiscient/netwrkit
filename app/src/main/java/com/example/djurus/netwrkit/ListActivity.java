@@ -142,7 +142,7 @@ public class ListActivity extends AppCompatActivity {
         attendeeList.add( new Person("Rosa Hernandez","Technology","Engineer", "Apple","Shoes",37.868826, -122.263349));
         attendeeList.add( new Person("Martin Lawrence","Technology","Designer", "Uber","Golfing",37.868758, -122.263596));
         attendeeList.add( new Person("Wilson Wong","Technology","Consultant", "Accenture","Basketball",37.868931, -122.262595));
-        attendeeList.add( new Person("Nancy Nguyen","Education","Designer", "Idea","Social Media",37.868711, -122.262280));
+        attendeeList.add( new Person("Nancy Nguyen","Education","Designer", "IDEO","Social Media",37.868711, -122.262280));
         attendeeList.add( new Person("Paul Patinsky","Finance","Engineer", "Uber","Skiing",37.868470, -122.262344));
         attendeeList.add( new Person("Ellen Gorospe","Healthcare","Consultant", "Deloitte","Movies",37.868368, -122.263798));
         attendeeList.add( new Person("Sanjay Gupta","Technology","Student", "UC Berkeley","Rafting",37.868694, -122.262532));
