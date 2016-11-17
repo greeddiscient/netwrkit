@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -26,6 +27,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private ArrayList<Person> displayList = new ArrayList<>();
     private ArrayList<Person> attendeeList = new ArrayList<>();
+    private Person user;
+    private boolean isFullMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +46,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         displayList = gson.fromJson(jsonDisplayList, type);
         String jsonAttendeeList=sharedPreferences.getString("attendeeList","");
         attendeeList = gson.fromJson(jsonAttendeeList,type);
+        Intent intent =getIntent();
+        Bundle extras=intent.getExtras();
+        if (extras == null) {
+            isFullMap=true;
+        }
+        else{
+            for(int i=0;i<attendeeList.size();i++){
+                if(attendeeList.get(i).getName().equals(extras.getString("name"))){
+                    user = attendeeList.get(i);
+                }
+            }
+            isFullMap = false;
+        }
+
 
         if (displayList==null){
             displayList=attendeeList;
         }
+
 
 
         Button listView = (Button)findViewById(R.id.list_view_button);
@@ -76,10 +94,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        mMap.setMyLocationEnabled(true);
         // Add a marker in SouthHall and move the camera
         mMap.addMarker(new MarkerOptions().position(new LatLng(37.868319, -122.263307)).title("ME").icon(BitmapDescriptorFactory.fromResource(R.drawable.youpin)));
-        for (int i=0;i<displayList.size();i++){
-            Person person = displayList.get(i);
-            mMap.addMarker(new MarkerOptions().position(person.getLocation()).title(person.getName()));
+        if(isFullMap){
+            for (int i=0;i<displayList.size();i++){
+                Person person = displayList.get(i);
+                mMap.addMarker(new MarkerOptions().position(person.getLocation()).title(person.getName()));
+            }
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.868647,-122.262859),17.0f));
         }
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.868647,-122.262859),17.0f));
+        else{
+            mMap.addMarker(new MarkerOptions().position(user.getLocation()).title(user.getName()));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(user.getLocation(),17.0f));
+        }
+
     }
 }

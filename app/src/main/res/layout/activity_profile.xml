@@ -34,13 +34,25 @@
                     android:textStyle="bold"
                     android:text="Michelle C"/>
             </LinearLayout>
-
-            <Button
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bookmark"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginBottom="20dp">
+                <Button
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bookmark"
+                    android:layout_marginRight="30dp"/>
+                <Button
+                    android:id="@+id/viewOnMap"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View ON MAP" />
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"

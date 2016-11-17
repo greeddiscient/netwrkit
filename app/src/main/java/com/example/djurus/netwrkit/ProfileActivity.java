@@ -6,13 +6,17 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
     private TextView userName;
@@ -20,6 +24,8 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView userPosition;
     private TextView userSkills;
     private TextView userFunFact;
+    private Button viewOnMap;
+
     private ArrayList<Person> attendeeList;
     private Person user;
     @Override
@@ -31,6 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
         userPosition = (TextView) findViewById(R.id.userPosition);
         userSkills= (TextView) findViewById(R.id.userSkills);
         userFunFact = (TextView) findViewById(R.id.userFunFact);
+        viewOnMap = (Button) findViewById(R.id.viewOnMap);
 
         SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         Gson gson=new Gson();
@@ -50,6 +57,15 @@ public class ProfileActivity extends AppCompatActivity {
         userCompany.setText(user.getCompany());
         userPosition.setText(user.getOccupation());
 
+        viewOnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(ProfileActivity.this, MapsActivity.class);
+                String name = user.getName();
+                myIntent.putExtra("name", name);
+                ProfileActivity.this.startActivity(myIntent);
+            }
+        });
 
     }
 }
