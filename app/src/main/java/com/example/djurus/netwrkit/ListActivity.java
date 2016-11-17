@@ -163,14 +163,15 @@ public class ListActivity extends AppCompatActivity {
         }
         list = (ListView) findViewById(android.R.id.list);
         list.setAdapter(adapter);
-//        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Intent myIntent = new Intent(MainActivity.this, QuestDetailsActivity.class);
-//                myIntent.putExtra("questnumber", position);
-//                ListActivity.this.startActivity(myIntent);
-//            }
-//        });
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent myIntent = new Intent(ListActivity.this, ProfileActivity.class);
+                String name = filteredList.get(position).getName();
+                myIntent.putExtra("name", name);
+                ListActivity.this.startActivity(myIntent);
+            }
+        });
 
 
         mapView.setOnClickListener(new View.OnClickListener() {
