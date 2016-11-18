@@ -25,6 +25,11 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView userSkills;
     private TextView userFunFact;
     private Button viewOnMap;
+    private Button bookmarkButton;
+    private Button unbookmarkButton;
+    private int index;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor prefsEditor;
 
     private ArrayList<Person> attendeeList;
     private Person user;
@@ -38,8 +43,11 @@ public class ProfileActivity extends AppCompatActivity {
         userSkills= (TextView) findViewById(R.id.userSkills);
         userFunFact = (TextView) findViewById(R.id.userFunFact);
         viewOnMap = (Button) findViewById(R.id.viewOnMap);
+        bookmarkButton = (Button) findViewById(R.id.bookmarkButton);
+        unbookmarkButton = (Button) findViewById(R.id.unbookmarkButton);
 
-        SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        prefsEditor = sharedPreferences.edit();
         Gson gson=new Gson();
         Type type = new TypeToken<ArrayList<Person>>(){}.getType();
         String jsonAttendeeList=sharedPreferences.getString("attendeeList","");
@@ -50,12 +58,21 @@ public class ProfileActivity extends AppCompatActivity {
         Log.d("name",name);
         for(int i=0;i<attendeeList.size();i++){
             if(attendeeList.get(i).getName().equals(name)){
+                index=i;
                 user = attendeeList.get(i);
             }
         }
         userName.setText(user.getName());
         userCompany.setText(user.getCompany());
         userPosition.setText(user.getOccupation());
+        if(user.isStarred()){
+            unbookmarkButton.setVisibility(View.VISIBLE);
+            bookmarkButton.setVisibility(View.GONE);
+        }
+        else{
+            bookmarkButton.setVisibility(View.VISIBLE);
+            unbookmarkButton.setVisibility(View.GONE);
+        }
 
         viewOnMap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +83,27 @@ public class ProfileActivity extends AppCompatActivity {
                 ProfileActivity.this.startActivity(myIntent);
             }
         });
-
+        bookmarkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                attendeeList.get(index).setStar(true);
+                bookmarkButton.setVisibility(View.GONE);
+                unbookmarkButton.setVisibility(View.VISIBLE);
+                String jsonAttendeeList = new Gson().toJson(attendeeList);
+                prefsEditor.putString("attendeeList", jsonAttendeeList);
+                prefsEditor.commit();
+            }
+        });
+        unbookmarkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                attendeeList.get(index).setStar(false);
+                bookmarkButton.setVisibility(View.VISIBLE);
+                unbookmarkButton.setVisibility(View.GONE);
+                String jsonAttendeeList = new Gson().toJson(attendeeList);
+                prefsEditor.putString("attendeeList", jsonAttendeeList);
+                prefsEditor.commit();
+            }
+        });
     }
 }

@@ -9,10 +9,11 @@
         android:layout_height="wrap_content"
         android:gravity="center">
         <ImageView
+            android:id="@+id/star"
             android:layout_marginLeft="5dp"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/user"
+            android:src="@drawable/starunfilled"
             android:layout_marginRight="10dp"/>
         <ImageView
             android:layout_centerVertical="true"

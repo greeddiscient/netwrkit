@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -15,6 +16,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -27,7 +29,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private ArrayList<Person> displayList = new ArrayList<>();
     private ArrayList<Person> attendeeList = new ArrayList<>();
+    private ArrayList<Person> bookmarkList = new ArrayList<>();
     private Person user;
+    private Button showBookmarkButton;
+    private Button hideBookmarkButton;
     private boolean isFullMap;
 
     @Override
@@ -39,6 +44,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        showBookmarkButton = (Button) findViewById(R.id.showBookmarkButton);
+        hideBookmarkButton = (Button) findViewById(R.id.hideBookmarkButton);
+
         sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         String jsonDisplayList=sharedPreferences.getString("displayList","");
         Gson gson=new Gson();
@@ -46,8 +54,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         displayList = gson.fromJson(jsonDisplayList, type);
         String jsonAttendeeList=sharedPreferences.getString("attendeeList","");
         attendeeList = gson.fromJson(jsonAttendeeList,type);
+        populateBookmarkList();
         Intent intent =getIntent();
         Bundle extras=intent.getExtras();
+        for(int i=0;i<attendeeList.size();i++){
+            Log.d("bookmark",String.valueOf(attendeeList.get(i).isStarred()));
+        }
         if (extras == null) {
             isFullMap=true;
         }
@@ -76,6 +88,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 MapsActivity.this.startActivity(myIntent);
             }
         });
+        showBookmarkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.clear();
+                addMarkers(bookmarkList);
+                mMap.addMarker(new MarkerOptions().position(new LatLng(37.868319, -122.263307)).title("ME").icon(BitmapDescriptorFactory.fromResource(R.drawable.youpin)));
+                showBookmarkButton.setVisibility(View.GONE);
+                hideBookmarkButton.setVisibility(View.VISIBLE);
+                for(int i=0;i<bookmarkList.size();i++){
+                    Log.d("bookmark",bookmarkList.get(i).getName());
+                }
+            }
+        });
+        hideBookmarkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.clear();
+                addMarkers(displayList);
+                mMap.addMarker(new MarkerOptions().position(new LatLng(37.868319, -122.263307)).title("ME").icon(BitmapDescriptorFactory.fromResource(R.drawable.youpin)));
+                showBookmarkButton.setVisibility(View.VISIBLE);
+                hideBookmarkButton.setVisibility(View.GONE);
+            }
+        });
     }
 
 
@@ -95,16 +130,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Add a marker in SouthHall and move the camera
         mMap.addMarker(new MarkerOptions().position(new LatLng(37.868319, -122.263307)).title("ME").icon(BitmapDescriptorFactory.fromResource(R.drawable.youpin)));
         if(isFullMap){
-            for (int i=0;i<displayList.size();i++){
-                Person person = displayList.get(i);
-                mMap.addMarker(new MarkerOptions().position(person.getLocation()).title(person.getName()));
-            }
+            addMarkers(displayList);
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.868647,-122.262859),17.0f));
         }
         else{
-            mMap.addMarker(new MarkerOptions().position(user.getLocation()).title(user.getName()));
+            mMap.addMarker(new MarkerOptions().position(user.getLocation()).title(user.getName()).snippet(user.getOccupation()+" @ "+user.getCompany()));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(user.getLocation(),17.0f));
         }
 
+
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                String name= marker.getTitle();
+                Intent myIntent = new Intent(MapsActivity.this, ProfileActivity.class);
+                myIntent.putExtra("name", name);
+                MapsActivity.this.startActivity(myIntent);
+            }
+        });
+    }
+    public void addMarkers(ArrayList<Person> list){
+        for (int i=0;i<list.size();i++){
+            Person person = list.get(i);
+            mMap.addMarker(new MarkerOptions().position(person.getLocation()).title(person.getName()).snippet(person.getOccupation()+" @ "+person.getCompany()));
+        }
+    }
+    public void populateBookmarkList(){
+        for (int i=0;i<attendeeList.size();i++){
+            if (attendeeList.get(i).isStarred()){
+                bookmarkList.add(attendeeList.get(i));
+            }
+        }
     }
 }

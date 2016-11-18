@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -309,16 +310,52 @@ public class ListActivity extends AppCompatActivity {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View personView = inflater.inflate(R.layout.personview, parent, false);
 
+            final Person person=values.get(position);
+
             TextView personName = (TextView) personView.findViewById(R.id.personName);
-            personName.setText(values.get(position).getName());
+            personName.setText(person.getName());
 
             TextView personOccupation= (TextView) personView.findViewById(R.id.personOccupation);
-            personOccupation.setText(values.get(position).getOccupation());
+            personOccupation.setText(person.getOccupation());
 
             TextView personCompany = (TextView) personView.findViewById(R.id.personCompany);
-            personCompany.setText(values.get(position).getCompany());
+            personCompany.setText(person.getCompany());
             TextView personIndustry = (TextView) personView.findViewById(R.id.personIndustry);
-            personIndustry.setText(values.get(position).getIndustry());
+            personIndustry.setText(person.getIndustry());
+
+            final ImageView star = (ImageView) personView.findViewById(R.id.star);
+            if (!person.isStarred()){
+                star.setImageResource(R.drawable.starunfilled);
+            }
+            else{
+                star.setImageResource(R.drawable.starfilled);
+            }
+
+            star.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String name = person.getName();
+                    for(int i=0;i<attendeeList.size();i++){
+                        if(attendeeList.get(i).getName().equals(name)){
+                            if (!attendeeList.get(i).isStarred()){
+                                star.setImageResource(R.drawable.starfilled);
+                                attendeeList.get(i).setStar(true);
+                            }
+                            else{
+                                star.setImageResource(R.drawable.starunfilled);
+                                attendeeList.get(i).setStar(false);
+                            }
+                        }
+                    }
+                    for(int i=0;i<attendeeList.size();i++){
+                        Log.d("bool",attendeeList.get(i).getName()+String.valueOf(attendeeList.get(i).isStarred()));
+
+                    }
+                    String jsonAttendeeList = new Gson().toJson(attendeeList);
+                    prefsEditor.putString("attendeeList", jsonAttendeeList);
+                    prefsEditor.commit();
+                }
+            });
 
             return personView;
         }
@@ -492,5 +529,41 @@ public class ListActivity extends AppCompatActivity {
             }
         }
         return result;
+    }
+    public Person matchName(String name){
+        for(int i=0;i<attendeeList.size();i++){
+            if(attendeeList.get(i).getName().equals(name)){
+                return attendeeList.get(i);
+            }
+        }
+        return null;
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        // put your code here...
+        Gson gson=new Gson();
+        Type type = new TypeToken<ArrayList<Person>>(){}.getType();
+        String jsonAttendeeList=sharedPreferences.getString("attendeeList","");
+        attendeeList = gson.fromJson(jsonAttendeeList,type);
+        updateFilteredList();
+        adapter.notifyDataSetChanged();
+        for(int i=0;i<attendeeList.size();i++){
+            Log.d("Attendeelist",attendeeList.get(i).getName()+String.valueOf(attendeeList.get(i).isStarred()));
+
+        }
+        for(int i=0;i<filteredList.size();i++){
+            Log.d("filteredlist",filteredList.get(i).getName()+String.valueOf(filteredList.get(i).isStarred()));
+
+        }
+    }
+    public void updateFilteredList(){
+        for(int i=0;i<filteredList.size();i++){
+            for(int j=0;j<attendeeList.size();j++){
+                if(filteredList.get(i).getName().equals(attendeeList.get(j).getName())){
+                    filteredList.get(i).setStar(attendeeList.get(j).isStarred());
+                }
+            }
+        }
     }
 }
