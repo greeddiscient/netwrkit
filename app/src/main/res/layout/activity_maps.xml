@@ -6,42 +6,34 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context="com.example.djurus.netwrkit.MainActivity"
     android:orientation="vertical">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cal Career Fair"
-        android:textSize="24dp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="0dp"
+        android:background="#4AA8CD"
         android:gravity="center">
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <Button
+                android:visibility="visible"
                 android:id="@+id/showBookmarkButton"
                 android:layout_width="175dp"
-                android:layout_height="50dp"
-                android:text="Show Bookmarked"/>
+                android:layout_height="75dp"
+                android:background="@drawable/showbookmarked" />
             <Button
                 android:visibility="gone"
                 android:id="@+id/hideBookmarkButton"
                 android:layout_width="175dp"
-                android:layout_height="50dp"
-                android:text="Hide Bookmarked"/>
+                android:background="@drawable/hidebookmarked"
+                android:layout_height="75dp" />
         </RelativeLayout>
 
         <Button
             android:id="@+id/list_view_button"
             android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:text="List View"/>
+            android:layout_height="75dp"
+            android:background="@drawable/listview"/>
     </LinearLayout>
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"

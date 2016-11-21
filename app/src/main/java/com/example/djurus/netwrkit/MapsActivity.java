@@ -134,7 +134,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.868647,-122.262859),17.0f));
         }
         else{
-            mMap.addMarker(new MarkerOptions().position(user.getLocation()).title(user.getName()).snippet(user.getOccupation()+" @ "+user.getCompany()));
+            mMap.addMarker(new MarkerOptions().position(user.getLocation()).title(user.getName()).snippet(user.getOccupation()+" @ "+user.getCompany()).icon(BitmapDescriptorFactory.fromResource(R.drawable.custompin)));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(user.getLocation(),17.0f));
         }
 
@@ -152,7 +152,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void addMarkers(ArrayList<Person> list){
         for (int i=0;i<list.size();i++){
             Person person = list.get(i);
-            mMap.addMarker(new MarkerOptions().position(person.getLocation()).title(person.getName()).snippet(person.getOccupation()+" @ "+person.getCompany()));
+            mMap.addMarker(new MarkerOptions().position(person.getLocation()).title(person.getName()).snippet(person.getOccupation()+" @ "+person.getCompany()).icon(BitmapDescriptorFactory.fromResource(R.drawable.custompin)));
         }
     }
     public void populateBookmarkList(){

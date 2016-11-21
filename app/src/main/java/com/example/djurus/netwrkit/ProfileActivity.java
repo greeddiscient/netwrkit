@@ -24,7 +24,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView userCompany;
     private TextView userPosition;
     private TextView userSkills;
-    private TextView userFunFact;
+    private TextView userInterests;
     private Button viewOnMap;
     private Button bookmarkButton;
     private Button unbookmarkButton;
@@ -42,7 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
         userCompany = (TextView) findViewById(R.id.userCompany);
         userPosition = (TextView) findViewById(R.id.userPosition);
         userSkills= (TextView) findViewById(R.id.userSkills);
-        userFunFact = (TextView) findViewById(R.id.userFunFact);
+        userInterests = (TextView) findViewById(R.id.userInterests);
         viewOnMap = (Button) findViewById(R.id.viewOnMap);
         bookmarkButton = (Button) findViewById(R.id.bookmarkButton);
         unbookmarkButton = (Button) findViewById(R.id.unbookmarkButton);
@@ -66,6 +66,10 @@ public class ProfileActivity extends AppCompatActivity {
         userName.setText(user.getName());
         userCompany.setText(user.getCompany());
         userPosition.setText(user.getOccupation());
+        userInterests.setText(user.getInterests());
+        if (user.getSkills()!=null){
+            userSkills.setText(user.getSkills());
+        }
         if(user.isStarred()){
             unbookmarkButton.setVisibility(View.VISIBLE);
             bookmarkButton.setVisibility(View.GONE);

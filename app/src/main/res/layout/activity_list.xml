@@ -10,110 +10,165 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="175dp">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="175dp"
+                android:src="@drawable/sproul"
+                android:scaleType="fitXY"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="175dp"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cal Career Fair"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    android:textColor="#fff"
+                    android:gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:text="Nov. 21 12:00PM-5:00pm"
+                    android:layout_marginBottom="15dp"
+                    android:gravity="center"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:text="Pauley Ballroom - MLK"
+                    android:layout_marginBottom="15dp"
+                    android:gravity="center"/>
+            </LinearLayout>
+        </RelativeLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Cal Career Fair"
-                android:textSize="24dp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Cal Career Fair"-->
+                <!--android:textSize="24dp"-->
+                <!--android:textStyle="bold"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_marginBottom="10dp"/>-->
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:gravity="center">-->
+                <!--<ImageView-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="100dp"-->
+                    <!--android:src="@drawable/careerfair"/>-->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="vertical">-->
+                    <!--<RelativeLayout-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="match_parent">-->
+                        <!--<ImageView-->
+                            <!--android:id="@+id/calendar"-->
+                            <!--android:layout_width="25dp"-->
+                            <!--android:layout_height="25dp"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:src="@drawable/calendar"/>-->
+                        <!--<TextView-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_toRightOf="@id/calendar"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:textSize="16dp"-->
+                            <!--android:text="Nov 21 12:00PM - 05:00PM">-->
+                        <!--</TextView>-->
+                    <!--</RelativeLayout>-->
+                    <!--<RelativeLayout-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="match_parent">-->
+                        <!--<ImageView-->
+                            <!--android:id="@+id/location"-->
+                            <!--android:layout_width="25dp"-->
+                            <!--android:layout_height="25dp"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:src="@drawable/location"/>-->
+                        <!--<TextView-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_toRightOf="@id/location"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:textSize="16dp"-->
+                            <!--android:text="Pauley Ballroom - MLK">-->
+                        <!--</TextView>-->
+                    <!--</RelativeLayout>-->
+                <!--</LinearLayout> -->
+            <!--</LinearLayout>-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/careerfair"/>
+                android:layout_height="match_parent"
+                android:paddingBottom="0dp"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:background="#4AA8CD">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#fff"
                     android:orientation="vertical">
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
-                        <ImageView
-                            android:id="@+id/calendar"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_marginLeft="10dp"
-                            android:src="@drawable/calendar"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/calendar"
-                            android:layout_marginLeft="10dp"
-                            android:textSize="16dp"
-                            android:text="Nov 21 12:00PM - 05:00PM">
-                        </TextView>
-                    </RelativeLayout>
-                    <RelativeLayout
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="People Attending"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:textColor="#000"
+                        android:gravity="center"
                         android:layout_marginTop="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
-                        <ImageView
-                            android:id="@+id/location"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_marginLeft="10dp"
-                            android:src="@drawable/location"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/location"
-                            android:layout_marginLeft="10dp"
-                            android:textSize="16dp"
-                            android:text="Pauley Ballroom - MLK">
-                        </TextView>
-                    </RelativeLayout>
+                        android:layout_marginBottom="10dp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center">
+                        <Button
+                            android:layout_width="125dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/border"
+                            android:textColor="#fff"
+                            android:layout_marginRight="20dp"
+                            android:text="Filter By"
+                            android:id="@+id/filterbutton"/>
+                        <Button
+                            android:id="@+id/map_view_button"
+                            android:background="@drawable/border"
+                            android:layout_width="125dp"
+                            android:textColor="#fff"
+                            android:layout_height="50dp"
+                            android:text="Map View"/>
+                    </LinearLayout>
+                    <ListView
+                        android:layout_marginTop="0dp"
+                        android:id="@android:id/list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+                    </ListView>
                 </LinearLayout>
-
-
             </LinearLayout>
-            <View
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#000"></View>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="People Attending"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:gravity="center">
-                <Button
-                    android:layout_width="150dp"
-                    android:layout_height="50dp"
-                    android:text="Filter By"
-                    android:id="@+id/filterbutton"/>
-                <Button
-                    android:id="@+id/map_view_button"
-                    android:layout_width="150dp"
-                    android:layout_height="50dp"
-                    android:text="Map View"/>
-            </LinearLayout>
-            <ListView
-                android:layout_marginTop="5dp"
-                android:id="@android:id/list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-            </ListView>
+
         </LinearLayout>
+
     </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -135,11 +190,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Filter By:"
+                android:textColor="#000"
                 android:textSize="26dp"
                 android:layout_marginBottom="10dp"/>
             <Button
                 android:id="@+id/filterCompanyButton"
                 android:layout_width="wrap_content"
+                android:background="@drawable/border"
+                android:textColor="#fff"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="3dp"
                 android:text="Company" />
@@ -147,6 +205,8 @@
                 android:id="@+id/filterJobButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:textColor="#fff"
                 android:layout_marginBottom="3dp"
                 android:text="Job Type"/>
             <Button
@@ -154,17 +214,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="3dp"
+                android:background="@drawable/border"
+                android:textColor="#fff"
                 android:text="Interests"/>
             <Button
                 android:id="@+id/filterIndustryButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="3dp"
+                android:background="@drawable/border"
+                android:textColor="#fff"
                 android:text="Industry"/>
             <Button
                 android:id="@+id/resetFilterButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:textColor="#fff"
                 android:text="Reset"/>
 
         </LinearLayout>
@@ -190,6 +256,7 @@
                 android:layout_height="wrap_content"
                 android:text="Job Type"
                 android:textSize="26dp"
+                android:textColor="#000"
                 android:layout_marginBottom="15dp"/>
             <CheckBox
                 android:id="@+id/engineerCheckBox"
@@ -219,6 +286,8 @@
                 android:id="@+id/searchJobFilterButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:textColor="#fff"
                 android:text="Search"/>
         </LinearLayout>
     </RelativeLayout>
@@ -243,6 +312,7 @@
                 android:layout_height="wrap_content"
                 android:text="Industry Type"
                 android:textSize="26dp"
+                android:textColor="#000"
                 android:layout_marginBottom="15dp"/>
             <CheckBox
                 android:id="@+id/financeCheckBox"
@@ -272,6 +342,8 @@
                 android:id="@+id/searchIndustryFilterButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:textColor="#fff"
                 android:text="Search"/>
         </LinearLayout>
     </RelativeLayout>
@@ -298,6 +370,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Company Name"
+                    android:textColor="#000"
                     android:textSize="26dp"
                     android:layout_marginBottom="15dp"/>
                 <CheckBox
@@ -358,6 +431,8 @@
                     android:id="@+id/searchCompanyFilterButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:textColor="#fff"
                     android:text="Search"/>
             </LinearLayout>
         </RelativeLayout>
@@ -382,6 +457,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#000"
                 android:text="Interests"
                 android:textSize="26dp"
                 android:layout_marginBottom="15dp"/>
@@ -413,6 +489,8 @@
                 android:id="@+id/searchInterestsFilterButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:textColor="#fff"
                 android:text="Search"/>
         </LinearLayout>
     </RelativeLayout>
