@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -73,6 +74,13 @@ public class ProfileActivity extends AppCompatActivity {
             bookmarkButton.setVisibility(View.VISIBLE);
             unbookmarkButton.setVisibility(View.GONE);
         }
+
+        ImageView pp = (ImageView) findViewById(R.id.profilePicture);
+        if(user.getImgSrc()!=null){
+            int resID = getResources().getIdentifier(user.getImgSrc(),"drawable",getPackageName());
+            pp.setImageResource(resID);
+        }
+
 
         viewOnMap.setOnClickListener(new View.OnClickListener() {
             @Override

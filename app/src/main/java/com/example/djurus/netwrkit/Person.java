@@ -16,6 +16,7 @@ public class Person {
     private String name;
     private String interests;
     private LatLng location;
+    private String imgSrc;
     private boolean starred=false;
     public Person(String name, String industry,String occupation,String company, String interests, double lat, double lng){
         this.name = name;
@@ -50,4 +51,11 @@ public class Person {
         starred = b;
     }
 
+    public void setImgSrc(String imgSrc) {
+        this.imgSrc = imgSrc;
+    }
+
+    public String getImgSrc() {
+        return imgSrc;
+    }
 }
