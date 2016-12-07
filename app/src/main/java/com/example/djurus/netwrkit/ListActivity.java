@@ -151,6 +151,7 @@ public class ListActivity extends AppCompatActivity {
 
         if (filteredList.size()==0){
             adapter = new PersonAdapter(getApplicationContext(), attendeeList);
+            filteredList=attendeeList;
         }
         else{
             adapter = new PersonAdapter(getApplicationContext(), filteredList);
