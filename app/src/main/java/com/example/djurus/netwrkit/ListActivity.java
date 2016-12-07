@@ -130,7 +130,13 @@ public class ListActivity extends AppCompatActivity {
         String jsonDisplayList=sharedPreferences.getString("displayList","");
         Gson gson=new Gson();
         Type type = new TypeToken<ArrayList<Person>>(){}.getType();
-        filteredList = gson.fromJson(jsonDisplayList, type);
+        if (jsonDisplayList.equals("")){
+            filteredList = new ArrayList<>();
+        }
+        else{
+            filteredList = gson.fromJson(jsonDisplayList, type);
+        }
+
 
 
 
@@ -143,7 +149,7 @@ public class ListActivity extends AppCompatActivity {
         prefsEditor.putString("attendeeList", jsonAttendeeList);
         prefsEditor.commit();
 
-        if (filteredList==null){
+        if (filteredList.size()==0){
             adapter = new PersonAdapter(getApplicationContext(), attendeeList);
         }
         else{
